@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>分布式微服务专栏007(springboot中设计封装Result返回结果集类) | 😊人生如诗,随意如风</title>
+    <meta name="description" content="Gavin的博客">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.617c345f.css" as="style"><link rel="preload" href="/assets/js/app.1802431f.js" as="script"><link rel="preload" href="/assets/js/2.9f60d17e.js" as="script"><link rel="preload" href="/assets/js/14.479db8a6.js" as="script"><link rel="prefetch" href="/assets/js/10.3e49fff8.js"><link rel="prefetch" href="/assets/js/11.ed783597.js"><link rel="prefetch" href="/assets/js/12.7128232c.js"><link rel="prefetch" href="/assets/js/13.dd4acf38.js"><link rel="prefetch" href="/assets/js/15.dadc8741.js"><link rel="prefetch" href="/assets/js/16.d9e27bd4.js"><link rel="prefetch" href="/assets/js/17.da288ba2.js"><link rel="prefetch" href="/assets/js/18.299c971d.js"><link rel="prefetch" href="/assets/js/19.5cfbeda4.js"><link rel="prefetch" href="/assets/js/20.4f6b0523.js"><link rel="prefetch" href="/assets/js/21.7854a52a.js"><link rel="prefetch" href="/assets/js/3.8203601e.js"><link rel="prefetch" href="/assets/js/4.174d0342.js"><link rel="prefetch" href="/assets/js/5.ff669538.js"><link rel="prefetch" href="/assets/js/6.049ba214.js"><link rel="prefetch" href="/assets/js/7.873fcb8c.js"><link rel="prefetch" href="/assets/js/8.dd5252fc.js"><link rel="prefetch" href="/assets/js/9.4d4f0704.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.617c345f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">😊人生如诗,随意如风</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">工具</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://www.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://tu.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  图床
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://choose.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  摇号
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://love.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  LOVE
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div><div class="nav-item"><a href="https://blog.csdn.net/weixin_39200308" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  精华博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://www.github.com/xunyegege" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">主页</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">工具</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://www.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  导航
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://tu.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  图床
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://choose.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  摇号
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://love.pythonforever.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  LOVE
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div><div class="nav-item"><a href="https://blog.csdn.net/weixin_39200308" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  精华博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://www.github.com/xunyegege" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Java</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/java/SpringBoot面试相关.html" class="sidebar-link">/java/SpringBoot面试相关.html</a></li><li><a href="/java/redis进阶.html" class="sidebar-link">redis进阶</a></li><li><a href="/java/分布式微服务专栏001.html" class="sidebar-link">/java/分布式微服务专栏001.html</a></li><li><a href="/java/分布式微服务专栏002.html" class="sidebar-link">分布式微服务专栏002(springboot的配置读取与多环境配置)</a></li><li><a href="/java/分布式微服务专栏003.html" class="sidebar-link">分布式微服务专栏003(springboot中集成Swagger-bootstrap-ui--postman)</a></li><li><a href="/java/分布式微服务专栏004.html" class="sidebar-link">分布式微服务专栏004(springboot集成Redis)</a></li><li><a href="/java/分布式微服务专栏005.html" class="sidebar-link">分布式微服务专栏005(springboot集成Dubbo)</a></li><li><a href="/java/分布式微服务专栏006.html" class="sidebar-link">分布式微服务专栏006(SpringBoot集成Redis实现Token登录注册)</a></li><li><a href="/java/分布式微服务专栏007.html" class="active sidebar-link">分布式微服务专栏007(springboot中设计封装Result返回结果集类)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/java/分布式微服务专栏007.html#_1-returnresult封装返回结果集类设计" class="sidebar-link">(1)ReturnResult封装返回结果集类设计</a></li><li class="sidebar-sub-header"><a href="/java/分布式微服务专栏007.html#_2-返回类的工具类设计" class="sidebar-link">(2)返回类的工具类设计</a></li><li class="sidebar-sub-header"><a href="/java/分布式微服务专栏007.html#_3-自定义的状态码设计-解耦成静态常量" class="sidebar-link">(3)自定义的状态码设计,解耦成静态常量</a></li><li class="sidebar-sub-header"><a href="/java/分布式微服务专栏007.html#_4-测试" class="sidebar-link">(4)测试</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/java/分布式微服务专栏007.html#测试成功情况" class="sidebar-link">测试成功情况</a></li></ul></li></ul></li><li><a href="/java/分布式微服务专栏008.html" class="sidebar-link">分布式微服务专栏008(springboot中集成BCrypt密码加密&amp; jjwt&amp;自定义注解(拦截器))</a></li><li><a href="/java/分布式微服务专栏009.html" class="sidebar-link">分布式微服务专栏009(springboot中集成微信登录[完整,最新,最全] &amp;ngrok内网穿透)</a></li><li><a href="/java/分布式微服务专栏010.html" class="sidebar-link">分布式微服务专栏010(SpringCloud中的超时问题解决方案)</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>JAVA8</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>藏宝阁</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>岁月如梭(日记)</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="分布式微服务专栏007-springboot中设计封装result返回结果集类"><a href="#分布式微服务专栏007-springboot中设计封装result返回结果集类" aria-hidden="true" class="header-anchor">#</a> 分布式微服务专栏007(springboot中设计封装Result返回结果集类)</h1> <h3 id="项目地址"><a href="#项目地址" aria-hidden="true" class="header-anchor">#</a> 项目地址</h3> <blockquote><p>https://github.com/xunyegege/Backend_development/tree/master/dubbo_national_day</p></blockquote> <h2 id="_1-returnresult封装返回结果集类设计"><a href="#_1-returnresult封装返回结果集类设计" aria-hidden="true" class="header-anchor">#</a> (1)ReturnResult封装返回结果集类设计</h2> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * **********************************************************
+ *
+ * @Project:   和前端接口交互的统一格式
+ * @Author : Gavincoder
+ * @Mail : xunyegege@gmail.com
+ * @Github : https://github.com/xunyegege
+ * @ver : version 1.0
+ * @Date : 2019-09-28 22:03
+ * @description:
+ ************************************************************/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ReturnResult</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span><span class="token punctuation">{</span>
+
+
+    <span class="token comment">//状态码</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> code<span class="token punctuation">;</span>
+    <span class="token comment">//提示信息</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> message<span class="token punctuation">;</span>
+    <span class="token comment">//返回数据</span>
+    <span class="token keyword">private</span> <span class="token class-name">T</span> data<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Integer</span> <span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> code<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCode</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMessage</span><span class="token punctuation">(</span><span class="token class-name">String</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">T</span> <span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setData</span><span class="token punctuation">(</span><span class="token class-name">T</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br></div></div><h2 id="_2-返回类的工具类设计"><a href="#_2-返回类的工具类设计" aria-hidden="true" class="header-anchor">#</a> (2)返回类的工具类设计</h2> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * **********************************************************
+ *
+ * @Project:   和前端接口交互的统一格式Result类的工具类
+ * @Author : Gavincoder
+ * @Mail : xunyegege@gmail.com
+ * @Github : https://github.com/xunyegege
+ * @ver : version 1.0
+ * @Date : 2019-09-28 22:03
+ * @description:
+ ************************************************************/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ReturnResultUtils</span><span class="token punctuation">{</span>
+
+    <span class="token comment">/***
+     * 成功 不带数据
+     * @return  返回状态码与状态信息
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">ReturnResult</span> <span class="token function">returnSuccess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token class-name">ReturnResult</span> returnResult<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ReturnResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        returnResult<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span><span class="token class-name">ReturnResultContant</span><span class="token punctuation">.</span>SUCCESS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        returnResult<span class="token punctuation">.</span><span class="token function">setMessage</span><span class="token punctuation">(</span><span class="token string">&quot;success&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> returnResult<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">/***
+     * 成功 带数据
+     * @return  返回状态码,状态信息与数据
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">ReturnResult</span> <span class="token function">returnSuccess</span><span class="token punctuation">(</span><span class="token class-name">Object</span> data<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token class-name">ReturnResult</span> returnResult<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ReturnResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        returnResult<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span><span class="token class-name">ReturnResultContant</span><span class="token punctuation">.</span>SUCCESS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        returnResult<span class="token punctuation">.</span><span class="token function">setMessage</span><span class="token punctuation">(</span><span class="token string">&quot;success&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        returnResult<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> returnResult<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">/***
+     * 失败
+     * @return  返回状态码与状态信息
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">ReturnResult</span> <span class="token function">returnFail</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> code<span class="token punctuation">,</span> <span class="token class-name">String</span> message<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token class-name">ReturnResult</span> returnResult<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ReturnResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        returnResult<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        returnResult<span class="token punctuation">.</span><span class="token function">setMessage</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> returnResult<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br></div></div><h2 id="_3-自定义的状态码设计-解耦成静态常量"><a href="#_3-自定义的状态码设计-解耦成静态常量" aria-hidden="true" class="header-anchor">#</a> (3)自定义的状态码设计,解耦成静态常量</h2> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * **********************************************************
+ *
+ * @Project:
+ * @Author : Gavincoder
+ * @Mail : xunyegege@gmail.com
+ * @Github : https://github.com/xunyegege
+ * @ver : version 1.0
+ * @Date : 2019-09-28 22:03
+ * @description:
+ ************************************************************/</span>
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">ReturnResultContant</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">// 把与前端交流的返回code写成静态常量,这边都是你自定义的(我的数据参考网上案例)</span>
+
+    <span class="token comment">// 通用情况</span>
+    <span class="token comment">//&quot;success&quot;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> SUCCESS <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token comment">//&quot;服务端异常&quot;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> SERVER_EXCEPTION <span class="token operator">=</span> <span class="token number">500100</span><span class="token punctuation">;</span>
+    <span class="token comment">//&quot;输入参数为空&quot;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> PARAMETER_ISNULL <span class="token operator">=</span> <span class="token number">500101</span><span class="token punctuation">;</span>
+
+
+    <span class="token comment">// 业务异常</span>
+    <span class="token comment">//&quot;用户不存在&quot;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> USER_NOT_EXSIST <span class="token operator">=</span> <span class="token number">500102</span><span class="token punctuation">;</span>
+    <span class="token comment">//&quot;在线用户数超出允许登录的最大用户限制&quot;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> ONLINE_USER_OVER <span class="token operator">=</span> <span class="token number">500103</span><span class="token punctuation">;</span>
+    <span class="token comment">//&quot;不存在离线session数据&quot;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> SESSION_NOT_EXSIST <span class="token operator">=</span>  <span class="token number">500104</span><span class="token punctuation">;</span>
+    <span class="token comment">//&quot;查找不到对应数据&quot;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> NOT_FIND_DATA <span class="token operator">=</span> <span class="token number">500105</span><span class="token punctuation">;</span>
+
+
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br></div></div><h2 id="_4-测试"><a href="#_4-测试" aria-hidden="true" class="header-anchor">#</a> (4)测试</h2> <blockquote><h3 id="测试成功情况"><a href="#测试成功情况" aria-hidden="true" class="header-anchor">#</a> 测试成功情况</h3> <blockquote><div class="language-java line-numbers-mode"><pre class="language-java"><code> <span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">&quot; 测试返回结果集&quot;</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">&quot;/testReturnResult&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">ReturnResult</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">&gt;</span></span> <span class="token function">testReturnResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//测试个成功,返回个user类</span>
+        <span class="token class-name">User</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">&quot;gavincoder&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setEmail</span><span class="token punctuation">(</span><span class="token string">&quot;xunyegege@gmail.com&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token class-name">ReturnResultUtils</span><span class="token punctuation">.</span><span class="token function">returnSuccess</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></blockquote> <p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g7flwk44snj30dg0cujsv.jpg" alt="image-20190928223612926"></p></blockquote></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新于: </span> <span class="time">10/8/2019, 7:11:12 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/java/分布式微服务专栏006.html" class="prev">
+          分布式微服务专栏006(SpringBoot集成Redis实现Token登录注册)
+        </a></span> <span class="next"><a href="/java/分布式微服务专栏008.html">
+          分布式微服务专栏008(springboot中集成BCrypt密码加密&amp; jjwt&amp;自定义注解(拦截器))
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.1802431f.js" defer></script><script src="/assets/js/2.9f60d17e.js" defer></script><script src="/assets/js/14.479db8a6.js" defer></script>
+  </body>
+</html>
